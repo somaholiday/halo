@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halo Control</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        height: 30px;
+        margin: 0 auto;
+        width: 150px;
+      }
+
+      .container > * {
+        flex-grow: 1;
+      }
+
+      button {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button id="power">⭕</button>
+      <button id="temp">🌡</button>
+      <button id="down">🔅</button>
+      <button id="up">🔆</button>
+    </div>
+
+    <script>
+      const $ = document.querySelectorAll.bind(document);
+      const halo_ip = "10.10.10.235";
+      const api_base_url = `http://${halo_ip}`;
+
+      function makeRequest(command) {
+        const url = `${api_base_url}/${command}`;
+        fetch(url, {
+          mode: "no-cors",
+        });
+      }
+
+      const clickHandler = (event) => {
+        const id = event.target.id;
+        console.log(id);
+        makeRequest(id);
+      };
+
+      $("button").forEach((button) => {
+        button.addEventListener("click", clickHandler);
+      });
+    </script>
+  </body>
+</html>
